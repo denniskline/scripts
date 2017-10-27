@@ -42,7 +42,7 @@ download() {
 	randindex=$(( ( RANDOM % 50 )  + 1 ))
 	echo "Picking a random google image: $randindex for $SUPER_HERO"
 
-	image_url=$(wget -e robots=off --user-agent "$USER_AGENT" -qO - "$GOOGLE_IMAGE_URL" | sed 's/</\n</g' | grep '<a href.*\(png\|jpg\|jpeg\)' | sed 's/.*imgurl=\([^&]*\)\&.*/\1/' | head -n $randindex | tail -n1)
+	image_url=$(wget -e robots=off --user-agent "$USER_AGENT" -qO - "$GOOGLE_IMAGE_URL" | sed 's/<\/\?[^>]\+>/\n/g' | grep "\"oh\":1080,\"ou\":" | awk -F\"ou\":\" '{print $2}'| awk -F\" '{print $1}' | head -n $randindex | tail -n1)
 	image_url="${image_url%\%*}"
 	file_extension=$(echo $image_url | sed "s/.*\(\.[^\.]*\)$/\1/")
 	echo "Google search returned a link to: $image_url which looks like a $file_extension file"
