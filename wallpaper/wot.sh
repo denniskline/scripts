@@ -21,7 +21,7 @@ RAND_URL=${MONTHS[$randindex]}
 URL="http://worldoftanks.com/en/media/8/$RAND_URL"
 #echo "URL = $URL"
 
-# Look at the source HTML and find an image link for 1280x1024
+# Look at the source HTML and find an image link for 1920x1200
 IMG="$(lynx -source $URL | grep -oP '[^"]*1920[x_]1200[\.\_\-\w+]+jpg\b' | tail -n1)"
 #echo "IMG = $IMG"
 
