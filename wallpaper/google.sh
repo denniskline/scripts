@@ -4,9 +4,9 @@
 # 0 9 * * * /bin/bash $HOME/bin/google_wallpaper.sh >> /tmp/google-wallpaper.log 2>&1
 
 # Needed for cron to access the gnome-session and set the wallpaper
-export DISPLAY=:0
-PID=$(pgrep gnome-session)
-export DBUS_SESSION_BUS_ADDRESS=$(grep -z DBUS_SESSION_BUS_ADDRESS /proc/$PID/environ|cut -d= -f2-)
+#export DISPLAY=:0
+#PID=$(pgrep gnome-session)
+#export DBUS_SESSION_BUS_ADDRESS=$(grep -z DBUS_SESSION_BUS_ADDRESS /proc/$PID/environ|cut -d= -f2-)
 
 # The directory where all google wallpapers will be downloaded to
 PIC_DIRECTORY=$HOME/Pictures/google
@@ -57,6 +57,7 @@ download() {
 # Assign the newly downloaded image to the desktop
 set_desktop() {
 	echo "Setting desktop background to: $image_file"
+	echo "gsettings set org.gnome.desktop.background picture-uri \"file://$image_file\""
 	gsettings set org.gnome.desktop.background picture-uri "file://$image_file"
 }
 
